@@ -35,7 +35,10 @@ struct PlateForBestSellerView: View {
                     .resizable()
                     .scaledToFit()
             } placeholder: {
-                Color.gray.opacity(0.4)
+                ZStack {
+                    Color.gray.opacity(0.1)
+                    ProgressView()
+                }
             }
             .clipShape(RoundedRectangle(cornerRadius: 10))
             
