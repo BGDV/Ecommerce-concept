@@ -18,7 +18,10 @@ struct GetImagesForProductDetail: View {
                 .resizable()
                 .scaledToFit()
         } placeholder: {
-            Color.gray.opacity(0.1)
+            ZStack {
+                Color.gray.opacity(0.1)
+                ProgressView()
+            }
         }
     }
 }
