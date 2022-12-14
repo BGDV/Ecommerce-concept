@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-let pathDetail = "https://run.mocky.io/v3/6c14c560-15c6-4248-b9d2-b4508df7d4f5"
+
 
 class ProductDetailVM: ObservableObject {
     
@@ -15,6 +16,8 @@ class ProductDetailVM: ObservableObject {
     @Published var productDetailImages = [ImagesModel]()
     @Published var currentColorProductDetail = ""
     @Published var currentCapacityProductDetail = ""
+    
+    let manager = CacheManager.instance
     
     init() {
         if let url = URL(string: pathDetail) {
@@ -52,6 +55,21 @@ class ProductDetailVM: ObservableObject {
                                         self.productDetailImages.append(newImage)
                                         
                                     }
+                                }
+                            }
+                            
+                            // MARK: Cache images
+                            for item in parsedJSON.images {
+                                if let url = URL(string: item.description) {
+                                    URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                                        DispatchQueue.main.async {
+                                            if let data = data {
+                                                if let downloadedImage = UIImage(data: data) {
+                                                    self.manager.add(image: downloadedImage, name: item.description)
+                                                }
+                                            }
+                                        }
+                                    }).resume()
                                 }
                             }
                         }

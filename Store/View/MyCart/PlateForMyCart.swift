@@ -16,7 +16,10 @@ struct PlateForMyCart: View {
         VStack {
             ForEach(myCartVM.myCart, id: \.self) { item in
                 HStack {
-                    GetImagesForProductDetail(item: item.images)
+                    Image(uiImage: (viewModel.manager.getFromCache(name: item.images) ?? UIImage(systemName: "icloud.and.arrow.down"))!)
+                        .resizable()
+                        .scaledToFit()
+                    
                         .scaleEffect(0.9)
                         .background(Color.white)
                         .frame(width: 100, height: 100)

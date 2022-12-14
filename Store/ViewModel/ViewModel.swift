@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-let path = "https://run.mocky.io/v3/654bd15e-b121-49ba-a588-960956b15175"
 
 class ViewModel: ObservableObject {
     
@@ -19,6 +18,10 @@ class ViewModel: ObservableObject {
     @Published var currentTab = 1
     @Published var showMenu = true
     @Published var showMain = false
+    @Published var showProgressLine = false
+    @Published var progress: CGFloat = 0.0
+    
+    let manager = CacheManager.instance
 
     init() {
         if let url = URL(string: path) {
@@ -41,6 +44,40 @@ class ViewModel: ObservableObject {
                                 let newImage = ImagesModel(id: count2, path: item.picture, is_new: item.is_new, title: item.title, subtitle: item.subtitle, picture: item.picture, is_buy: item.is_buy)
                                     count2 += 1
                                     self.hotSalesImages.append(newImage)
+                            }
+                            
+                            
+                            
+                            // MARK: Cache images
+                            for item in homeStore {
+                                if let url = URL(string: item.picture.description) {
+                                    URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                                        DispatchQueue.main.async {
+                                            if let data = data {
+                                                if let downloadedImage = UIImage(data: data) {
+
+                                                    self.manager.add(image: downloadedImage, name: item.title)
+                                                }
+                                            }
+                                        }
+                                    }).resume()
+
+                                }
+                            }
+                            for item in bestSeller {
+                                if let url = URL(string: item.picture.description) {
+                                    URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                                        DispatchQueue.main.async {
+                                            if let data = data {
+                                                if let downloadedImage = UIImage(data: data) {
+
+                                                    self.manager.add(image: downloadedImage, name: item.title)
+                                                }
+                                            }
+                                        }
+                                    }).resume()
+
+                                }
                             }
                         }
                     } catch {

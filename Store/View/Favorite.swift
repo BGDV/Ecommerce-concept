@@ -15,7 +15,9 @@ struct Favorite: View {
             ForEach(viewModel.bestSeller, id: \.self) { item in
                 if item.is_favorites {
                     HStack {
-                        GetImagesForProductDetail(item: item.picture)
+                        Image(uiImage: viewModel.manager.getFromCache(name: item.title)!)
+                            .resizable()
+                            .scaledToFit()
                             .frame(width: 90, height: 90)
                             .padding(.trailing, 4)
                         

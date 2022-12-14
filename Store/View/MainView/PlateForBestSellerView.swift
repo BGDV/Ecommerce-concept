@@ -30,30 +30,23 @@ struct PlateForBestSellerView: View {
     
     var body: some View {
         VStack {
-            AsyncImage(url: URL(string: item.picture.description)) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-            } placeholder: {
-                ZStack {
-                    Color.gray.opacity(0.1)
-                    ProgressView()
-                }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            Image(uiImage: viewModel.manager.getFromCache(name: item.title) ?? UIImage(systemName: "icloud.and.arrow.down")!)
+                .resizable()
+                .scaledToFit()
+                .padding()
             
             Spacer()
-        
+            
             VStack(alignment: .leading) {
                 HStack {
                     Text("$\(item.price_without_discount)")
                         .font(.custom("MarkPro-Bold", fixedSize: 16))
-                        
+                    
                     Text("$\(item.discount_price)")
                         .font(.custom("MarkPro-Medium", fixedSize: 10))
                         .foregroundColor(Color.init(red: 0.8, green: 0.8, blue: 0.8))
                         .strikethrough()
-                        
+                    
                 }
                 Text(item.title)
                     .font(.custom("MarkPro-Regular", fixedSize: 10))
@@ -71,7 +64,7 @@ struct PlateForBestSellerView: View {
                         .scaledToFit()
                         .frame(width: 10)
                         .foregroundColor(Color.init("Orange"))
-                        
+                    
                         .background(
                             Circle()
                                 .stroke()
@@ -84,7 +77,7 @@ struct PlateForBestSellerView: View {
                 .padding()
                 .containerShape(Rectangle())
                 .onTapGesture {
-                   isFavorite(item: item)
+                    isFavorite(item: item)
                 }
                 
                 Spacer()

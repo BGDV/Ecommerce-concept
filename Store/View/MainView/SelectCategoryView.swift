@@ -49,7 +49,6 @@ struct SelectCategory: View {
                     }
                 }
                 
-                
                 VStack {
                     ZStack {
                         Circle()

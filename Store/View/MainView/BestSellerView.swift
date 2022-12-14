@@ -35,7 +35,6 @@ struct BestSellerView: View {
                     NavigationLink {
                             ProductDetail(item: item)
                     } label: {
-                        
                         if filterVM.filterCurrentModel != "All model" {
                             if item.title == filterVM.filterCurrentModel {
                                 

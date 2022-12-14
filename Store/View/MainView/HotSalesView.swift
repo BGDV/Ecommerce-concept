@@ -42,8 +42,9 @@ struct HotSales: View {
                     GeometryReader { geo in
                         
                         ForEach(viewModel.hotSalesImages, id: \.self) { item in
+                            Image(uiImage: viewModel.manager.getFromCache(name: item.title!) ?? UIImage(systemName: "icloud.and.arrow.down")!)
+                                .resizable()
                             
-                            GetImagesForHotSales(item: item.path)
                                 .frame(width: geo.size.width - 10, height: 190)
                                 .background(Color.white)
                                 .cornerRadius(10)
@@ -109,8 +110,6 @@ struct HotSales: View {
                                 .opacity(1.0 - abs(distance(item.id)) * 0.8 )
                                 .offset(x: myXOffset(item.id), y: 0)
                                 .zIndex(1.0 - abs(distance(item.id)) * 0.1)
-                            
-                            
                         }
                         .frame(width: geo.size.width)
                     }

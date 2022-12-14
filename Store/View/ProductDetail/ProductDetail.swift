@@ -77,8 +77,10 @@ struct ProductDetail: View {
                     GeometryReader { geo in
                         
                         ForEach(productDetailVM.productDetailImages, id: \.self) { item in
+                            Image(uiImage: viewModel.manager.getFromCache(name: item.path) ?? UIImage(systemName: "icloud.and.arrow.down")!)
+                                .resizable()
+                                .scaledToFit()
                             
-                            GetImagesForProductDetail(item: item.path)
                                 .background(Color.white)
                                 .cornerRadius(20)
                                 .shadow(color: .black.opacity(0.2), radius: 4, x: 2, y: 2)

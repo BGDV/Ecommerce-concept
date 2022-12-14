@@ -7,6 +7,9 @@
 
 import SwiftUI
 
+
+// MARK: Add cache images
+/*
 struct GetImagesForHotSales: View {
     @EnvironmentObject var viewModel: ViewModel
     
@@ -24,3 +27,5 @@ struct GetImagesForHotSales: View {
         }
     }
 }
+
+*/

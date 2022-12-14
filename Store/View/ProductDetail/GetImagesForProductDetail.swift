@@ -7,22 +7,28 @@
 
 import SwiftUI
 
-struct GetImagesForProductDetail: View {
-    @EnvironmentObject var viewModel: ViewModel
-    
-    let item: String
-    
-    var body: some View {
-        AsyncImage(url: URL(string: item)) { image in
-            image
-                .resizable()
-                .scaledToFit()
-        } placeholder: {
-            ZStack {
-                Color.gray.opacity(0.1)
-                ProgressView()
-            }
-        }
-    }
-}
 
+// MARK: Add cache images
+/*
+ 
+ struct GetImagesForProductDetail: View {
+ @EnvironmentObject var viewModel: ViewModel
+ 
+ let item: String
+ 
+ var body: some View {
+ AsyncImage(url: URL(string: item)) { image in
+ image
+ .resizable()
+ .scaledToFit()
+ } placeholder: {
+ ZStack {
+ Color.gray.opacity(0.1)
+ ProgressView()
+ }
+ }
+ }
+ }
+ 
+ 
+ */

@@ -11,7 +11,7 @@ struct Logo: View {
     @EnvironmentObject var viewModel: ViewModel
     
     var body: some View {
-        
+       
         ZStack {
             Color.init("Blue")
             
@@ -19,13 +19,32 @@ struct Logo: View {
                 .frame(width: 132)
                 .foregroundColor(Color.init("Orange"))
             
-            Text("Ecommerce \nConcept")
-                .foregroundColor(.white)
-                .font(.custom("MarkPro-Heavy", fixedSize: 30))
-                .offset(x: 50)
+            if viewModel.progress == 1.0 {
+                Text("Ecommerce \nConcept")
+                    .foregroundColor(.white)
+                    .font(.custom("MarkPro-Heavy", fixedSize: 30))
+                    .offset(x: 50)
+            }
         }
+        
+        .overlay(content: {
+            VStack {
+                Spacer()
+                
+                if viewModel.showProgressLine {
+                    ProgressLine()
+                        .padding(.bottom)
+                }
+            }
+            .padding(.bottom, 20)
+        })
         .onTapGesture {
-            viewModel.showMain = true
+            withAnimation {
+                viewModel.showProgressLine = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                    viewModel.showMain = true
+                }
+            }
         }
         .ignoresSafeArea()
     }

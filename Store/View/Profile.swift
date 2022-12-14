@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Profile: View {
+    @EnvironmentObject var viewModel: ViewModel
     var body: some View {
         NavigationStack {
             VStack {
@@ -20,8 +21,3 @@ struct Profile: View {
     }
 }
 
-struct Profile_Previews: PreviewProvider {
-    static var previews: some View {
-        Profile()
-    }
-}
