@@ -35,7 +35,6 @@ class ProductDetailVM: ObservableObject {
                             self.currentColorProductDetail = parsedJSON.color[0]
                             self.currentCapacityProductDetail = parsedJSON.capacity[0]
                             
-                            
                             self.productDetailImages.removeAll()
                             var count = 0
                             for item in self.productDetail {
@@ -62,11 +61,9 @@ class ProductDetailVM: ObservableObject {
                             for item in parsedJSON.images {
                                 if let url = URL(string: item.description) {
                                     URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-                                        DispatchQueue.main.async {
-                                            if let data = data {
-                                                if let downloadedImage = UIImage(data: data) {
-                                                    self.manager.add(image: downloadedImage, name: item.description)
-                                                }
+                                        if let data = data {
+                                            if let downloadedImage = UIImage(data: data) {
+                                                self.manager.add(image: downloadedImage, name: item.description)
                                             }
                                         }
                                     }).resume()
