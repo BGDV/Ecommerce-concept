@@ -9,7 +9,41 @@ import SwiftUI
 
 struct SelectCategory: View {
     @EnvironmentObject var viewModel: ViewModel
-    @State private var isSelected = 1
+    @State private var isSelected: isSelect = .one
+    
+    
+    enum isSelect {
+        case one, two, three, four
+    }
+    
+    
+    @ViewBuilder
+    func categoryItem(isSelected: isSelect, image: String, description: String, widthImage: CGFloat?, heighImage: CGFloat?) -> some View {
+        
+        VStack {
+            ZStack {
+                Circle()
+                    .frame(width: 71, height: 71)
+                    .foregroundColor(self.isSelected == isSelected ? Color.init("Orange") : .white)
+                Image(image)
+                    .resizable()
+                    .scaledToFit()
+                    .foregroundColor(self.isSelected == isSelected ? .white : Color.init(red: 0.702, green: 0.702, blue: 0.765))
+                    .frame(width: widthImage, height: heighImage)
+                
+            }
+            Text(description)
+                .font(.custom("MarkPro-Medium", size: 12))
+                .foregroundColor(self.isSelected == isSelected ? Color.init("Orange") : .black)
+        }
+        .onTapGesture {
+            withAnimation {
+                self.isSelected = isSelected
+            }
+        }
+    }
+    
+    
     
     var body: some View {
         VStack {
@@ -27,94 +61,16 @@ struct SelectCategory: View {
             .padding(.horizontal, 10)
             
             HStack(spacing: 20) {
-                VStack {
-                    ZStack {
-                        Circle()
-                            .frame(width: 71, height: 71)
-                            .foregroundColor(isSelected == 1 ? Color.init("Orange") : .white)
-                        Image("iphone")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(isSelected == 1 ? .white : Color.init(red: 0.702, green: 0.702, blue: 0.765))
-                            .frame(width: 18, height: 30)
-                        
-                    }
-                    Text("Phones")
-                        .font(.custom("MarkPro-Medium", size: 12))
-                        .foregroundColor(isSelected == 1 ? Color.init("Orange") : .black)
-                }
-                .onTapGesture {
-                    withAnimation {
-                        isSelected = 1
-                    }
-                }
                 
-                VStack {
-                    ZStack {
-                        Circle()
-                            .frame(width: 71, height: 71)
-                            .foregroundColor(isSelected == 2 ? Color.init("Orange") : .white)
-                        Image("computer")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundColor(isSelected == 2 ? .white : Color.init(red: 0.702, green: 0.702, blue: 0.765))
-                            .frame(width: 29, height: 31)
-                    }
-                    
-                    Text("Computer")
-                        .font(.custom("MarkPro-Medium", size: 12))
-                        .foregroundColor(isSelected == 2 ? Color.init("Orange") : .black)
-                }
-                .onTapGesture {
-                    withAnimation {
-                        isSelected = 2
-                    }
-                }
+                categoryItem(isSelected: .one, image: "iphone", description: "Phones", widthImage: 18, heighImage: 30)
                 
-                VStack {
-                    ZStack {
-                        Circle()
-                            .frame(width: 71, height: 71)
-                            .foregroundColor(isSelected == 3 ? Color.init("Orange") : .white)
-                        Image("heart")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 32, height: 30)
-                            .foregroundColor(isSelected == 3 ? .white : Color.init(red: 0.702, green: 0.702, blue: 0.765))
-                        
-                    }
-                    
-                    Text("Health")
-                        .font(.custom("MarkPro-Medium", size: 12))
-                        .foregroundColor(isSelected == 3 ? Color.init("Orange") : .black)
-                }
-                .onTapGesture {
-                    withAnimation {
-                        isSelected = 3
-                    }
-                }
+                categoryItem(isSelected: .two, image: "computer", description: "Computer", widthImage: 29, heighImage: 31)
                 
-                VStack {
-                    ZStack {
-                        Circle()
-                            .frame(width: 71, height: 71)
-                            .foregroundColor(isSelected == 4 ? Color.init("Orange") : .white)
-                        Image("books")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 21, height: 28)
-                            .foregroundColor(isSelected == 4 ? .white : Color.init(red: 0.702, green: 0.702, blue: 0.765))
-                        
-                    }
-                    Text("Books")
-                        .font(.custom("MarkPro-Medium", size: 12))
-                        .foregroundColor(isSelected == 4 ? Color.init("Orange") : .black)
-                }
-                .onTapGesture {
-                    withAnimation {
-                        isSelected = 4
-                    }
-                }
+                categoryItem(isSelected: .three, image: "heart", description: "Health", widthImage: 32, heighImage: 30)
+                
+       
+                categoryItem(isSelected: .four, image: "books", description: "Books", widthImage: 21, heighImage: 28)
+                
             }
             .background(Color.init("Gray"))
             .padding(.horizontal, 10)
