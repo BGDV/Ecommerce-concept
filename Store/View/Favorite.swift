@@ -15,7 +15,7 @@ struct Favorite: View {
             ForEach(viewModel.bestSeller, id: \.self) { item in
                 if item.is_favorites {
                     HStack {
-                        Image(uiImage: viewModel.manager.getFromCache(name: item.title)!)
+                        Image(uiImage: (viewModel.manager.getFromCache(name: item.title) ?? UIImage(systemName: "icloud.and.arrow.down"))!)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 90, height: 90)
